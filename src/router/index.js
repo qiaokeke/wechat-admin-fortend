@@ -36,7 +36,96 @@ export const constantRouterMap = [
       component: () => import('@/views/dashboard/index')
     }]
   },
-
+  {
+    path: '/user',
+    component: Layout,
+    redirect: '/user/info',
+    name: 'User',
+    meta: { title: '用户管理', icon: 'example' },
+    children: [
+      {
+        path: 'info',
+        name: 'Info',
+        component: () => import('@/views/wechat/user/info'),
+        meta: { title: 'Info', icon: 'table' }
+      },
+      {
+        path: 'tree',
+        name: 'Tree',
+        component: () => import('@/views/tree/index'),
+        meta: { title: 'Tree', icon: 'tree' }
+      }
+    ]
+  },
+  {
+    path: '/seller',
+    component: Layout,
+    redirect: '/seller/info',
+    name: 'Seller',
+    meta: { title: '卖家管理', icon: 'example' },
+    children: [
+      {
+        path: 'auth',
+        name: 'Auth',
+        component: () => import('@/views/seller/auth'),
+        meta: { title: '新增账号', icon: 'tree' }
+      },
+      {
+        path: 'add',
+        name: 'Add',
+        component: () => import('@/views/seller/add'),
+        meta: { title: '新增信息', icon: 'tree' }
+      },
+      {
+        path: 'info',
+        name: 'Info',
+        component: () => import('@/views/seller/info'),
+        meta: { title: '信息', icon: 'table' }
+      }
+    ]
+  },
+  {
+    path: '/menu',
+    component: Layout,
+    redirect: '/menu/info',
+    name: 'Menu',
+    meta: { title: '菜单管理', icon: 'example' },
+    children: [
+      {
+        path: 'info',
+        name: 'Info',
+        component: () => import('@/views/wechat/menu/info'),
+        meta: { title: 'Info', icon: 'table' }
+      },
+      {
+        path: 'tree',
+        name: 'Tree',
+        component: () => import('@/views/tree/index'),
+        meta: { title: 'Tree', icon: 'tree' }
+      }
+    ]
+  },
+  {
+    path: '/material',
+    component: Layout,
+    redirect: '/material/info',
+    name: 'Material',
+    meta: { title: '素材管理', icon: 'example' },
+    children: [
+      {
+        path: 'info',
+        name: 'Info',
+        component: () => import('@/views/wechat/material/info'),
+        meta: { title: '素材信息', icon: 'table' }
+      },
+      {
+        path: 'tree',
+        name: 'Tree',
+        component: () => import('@/views/tree/index'),
+        meta: { title: 'Tree', icon: 'tree' }
+      }
+    ]
+  },
   {
     path: '/example',
     component: Layout,
