@@ -58,8 +58,8 @@ export default {
     }
     return {
       loginForm: {
-        username: 'wechat1',
-        password: 'wechat1'
+        username: 'auth@10003',
+        password: 'auth@10003'
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
