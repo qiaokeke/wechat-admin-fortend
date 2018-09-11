@@ -16,7 +16,7 @@
       fit
       highlight-current-row
       style="width: 100%;min-height:1000px;">
-      <el-table-column label="Id" align="center" width="65">
+      <el-table-column label="Id" align="center" min-width="100px">
         <template slot-scope="scope">
           <span>{{ scope.row.tid }}</span>
         </template>
@@ -46,17 +46,17 @@
           <span>{{ scope.row.tgift }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="预热时间" align="center" width="95">
+      <el-table-column label="预热时间" align="center" min-width="100px">
         <template slot-scope="scope">
           <span>{{ scope.row.tpreheatTime }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="发布时间" class-name="status-col" width="100">
+      <el-table-column label="发布时间" class-name="status-col" min-width="100px">
         <template slot-scope="scope">
           <span>{{ scope.row.tpublishTime }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="结束时间" class-name="status-col" width="100">
+      <el-table-column label="结束时间" class-name="status-col" min-width="100px">
         <template slot-scope="scope">
           <span>{{ scope.row.tfinishTime }}</span>
         </template>

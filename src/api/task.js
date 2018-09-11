@@ -28,7 +28,7 @@ export function addTask(taskId, taskName, sellerId, chargeAmount, taskAmount, gi
 
 export function fetchList(query) {
   return request({
-    url: '/task/publishPageTasks',
+    url: '/task/pageTasks',
     method: 'get',
     params: query
   })
