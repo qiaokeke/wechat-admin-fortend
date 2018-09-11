@@ -58,27 +58,6 @@ export const constantRouterMap = [
     ]
   },
   {
-    path: '/task',
-    component: Layout,
-    redirect: '/task/publish',
-    name: 'Task',
-    meta: { title: '任务管理', icon: 'example' },
-    children: [
-      {
-        path: 'publish',
-        name: 'publish',
-        component: () => import('@/views/task/publish'),
-        meta: { title: '任务发布', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
-      }
-    ]
-  },
-  {
     path: '/seller',
     component: Layout,
     redirect: '/seller/info',
@@ -102,6 +81,27 @@ export const constantRouterMap = [
         name: 'Info',
         component: () => import('@/views/seller/info'),
         meta: { title: '信息', icon: 'table' }
+      }
+    ]
+  },
+  {
+    path: '/task',
+    component: Layout,
+    redirect: '/task/publish',
+    name: 'Task',
+    meta: { title: '任务管理', icon: 'example' },
+    children: [
+      {
+        path: 'publish',
+        name: 'publish',
+        component: () => import('@/views/task/publish'),
+        meta: { title: '任务发布', icon: 'table' }
+      },
+      {
+        path: 'info',
+        name: 'info',
+        component: () => import('@/views/task/info'),
+        meta: { title: '任务信息', icon: 'tree' }
       }
     ]
   },

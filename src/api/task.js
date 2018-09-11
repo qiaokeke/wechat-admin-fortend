@@ -6,3 +6,30 @@ export function getTaskId() {
     method: 'get'
   })
 }
+
+export function addTask(taskId, taskName, sellerId, chargeAmount, taskAmount, gift, giftPicUrl, preheatTime, publishTime, finishTime) {
+  return request({
+    url: '/task/add',
+    method: 'post',
+    data: {
+      taskId,
+      taskName,
+      sellerId,
+      chargeAmount,
+      taskAmount,
+      gift,
+      giftPicUrl,
+      preheatTime,
+      publishTime,
+      finishTime
+    }
+  })
+}
+
+export function fetchList(query) {
+  return request({
+    url: '/task/publishPageTasks',
+    method: 'get',
+    params: query
+  })
+}

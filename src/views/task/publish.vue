@@ -5,13 +5,16 @@
         <el-input v-model="form.taskId"/>
       </el-form-item>
       <el-form-item label="任务名称">
-        <el-input v-model="form.name"/>
+        <el-input v-model="form.taskName"/>
       </el-form-item>
-      <el-form-item label="店铺id">
-        <el-input v-model="form.name"/>
+      <el-form-item label="卖家id">
+        <el-input v-model="form.sellerId"/>
       </el-form-item>
       <el-form-item label="押款金额">
-        <el-input v-model="form.name"/>
+        <el-input v-model="form.chargeAmount"/>
+      </el-form-item>
+      <el-form-item label="任务数量">
+        <el-input v-model="form.taskAmount"/>
       </el-form-item>
       <el-form-item label="赠品图片url">
         <el-upload
@@ -28,31 +31,16 @@
         </el-upload>
       </el-form-item>
       <el-form-item label="赠品">
-        <el-input v-model="form.name"/>
+        <el-input v-model="form.gift"/>
       </el-form-item>
       <el-form-item label="预热时间">
-        <el-col :span="11">
-          <el-date-picker v-model="form.date1" type="date" placeholder="选择日期" style="width: 100%;"/>
-        </el-col>
-        <el-col :span="11">
-          <el-time-picker v-model="form.date1" placeholder="选择时间" style="width: 100%;"/>
-        </el-col>
+        <el-date-picker v-model="form.preheatTime" type="datetime" placeholder="选择预热时间" align="right" value-format="yyyy-MM-dd HH:mm:ss" format="yyyy-MM-dd HH:mm:ss"/>
       </el-form-item>
       <el-form-item label="发布时间">
-        <el-col :span="11">
-          <el-date-picker v-model="form.date1" type="date" placeholder="选择日期" style="width: 100%;"/>
-        </el-col>
-        <el-col :span="11">
-          <el-time-picker v-model="form.date1" placeholder="选择时间" style="width: 100%;"/>
-        </el-col>
+        <el-date-picker v-model="form.publishTime" type="datetime" placeholder="选择发布时间" align="right" value-format="yyyy-MM-dd HH:mm:ss" format="yyyy-MM-dd HH:mm:ss"/>
       </el-form-item>
       <el-form-item label="结束时间">
-        <el-col :span="11">
-          <el-date-picker v-model="form.date1" type="date" placeholder="选择日期" style="width: 100%;"/>
-        </el-col>
-        <el-col :span="11">
-          <el-time-picker v-model="form.date1" placeholder="选择时间" style="width: 100%;"/>
-        </el-col>
+        <el-date-picker v-model="form.finishTime" type="datetime" placeholder="选择结束时间" align="right" value-format="yyyy-MM-dd HH:mm:ss" format="yyyy-MM-dd HH:mm:ss"/>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">添加</el-button>
@@ -67,14 +55,15 @@ export default {
     return {
       form: {
         taskId: '',
+        taskName: '',
+        sellerId: '',
+        chargeAmount: '',
+        taskAmount: '',
+        gift: '',
         giftPicUrl: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
+        preheatTime: '',
+        publishTime: '',
+        finishTime: ''
       }
     }
   },
@@ -83,12 +72,9 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$message('submit!')
-    },
-    onCancel() {
-      this.$message({
-        message: 'cancel!',
-        type: 'warning'
+      this.$store.dispatch('AddTask', this.form).then((response) => {
+        this.$message(response.data)
+        this.setTaskId()
       })
     },
     setTaskId() {
@@ -101,6 +87,15 @@ export default {
     handleUploadSuccess(response) {
       this.$message('上传成功')
       this.form.giftPicUrl = response.data
+    },
+    setPreheatTime(date) {
+      this.preheatTime = date
+    },
+    setPublishTime(date) {
+      this.publishTime = date
+    },
+    setFinishTime(date) {
+      this.finishTime = date
     }
   }
 }
