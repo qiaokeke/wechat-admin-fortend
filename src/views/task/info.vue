@@ -63,7 +63,7 @@
       </el-table-column>
       <el-table-column label="操作" align="center" width="230" class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">{{ $t('table.edit') }}</el-button>
+          <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">修改</el-button>
           <el-button v-if="scope.row.status!='published'" size="mini" type="success" @click="handleModifyStatus(scope.row,'published')">{{ $t('table.publish') }}
           </el-button>
           <el-button v-if="scope.row.status!='draft'" size="mini" @click="handleModifyStatus(scope.row,'draft')">{{ $t('table.draft') }}
@@ -75,32 +75,37 @@
     </el-table>
 
     <div class="pagination-container">
-      <el-pagination :current-page="listQuery.page" :page-sizes="[10,20,30, 50]" :page-size="listQuery.limit" :total="total" background layout="total, sizes, prev, pager, next, jumper" @size-change="handleSizeChange" @current-change="handleCurrentChange"/>
+      <el-pagination :current-page="listQuery.page" :page-sizes="[10,20,30, 50]" :page-size="listQuery.size" :total="total" background layout="total, sizes, prev, pager, next, jumper" @size-change="handleSizeChange" @current-change="handleCurrentChange"/>
     </div>
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="70px" style="width: 400px; margin-left:50px;">
-        <el-form-item :label="$t('table.type')" prop="type">
-          <el-select v-model="temp.type" class="filter-item" placeholder="Please select">
-            <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name" :value="item.key"/>
-          </el-select>
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
+        <el-form-item label="Id" prop="type">
+          <el-input v-model="temp.tid"/>
         </el-form-item>
-        <el-form-item :label="$t('table.date')" prop="timestamp">
-          <el-date-picker v-model="temp.timestamp" type="datetime" placeholder="Please pick a date"/>
+        <el-form-item label="名称" prop="timestamp">
+          <el-input v-model="temp.tname"/>
         </el-form-item>
-        <el-form-item :label="$t('table.title')" prop="title">
-          <el-input v-model="temp.title"/>
+        <el-form-item label="卖家Id" prop="title">
+          <el-input v-model="temp.tsellerId"/>
         </el-form-item>
-        <el-form-item :label="$t('table.status')">
-          <el-select v-model="temp.status" class="filter-item" placeholder="Please select">
-            <el-option v-for="item in statusOptions" :key="item" :label="item" :value="item"/>
-          </el-select>
+        <el-form-item label="押款金额" prop="title">
+          <el-input v-model="temp.tchargeAmout"/>
         </el-form-item>
-        <el-form-item :label="$t('table.importance')">
-          <el-rate v-model="temp.importance" :colors="['#99A9BF', '#F7BA2A', '#FF9900']" :max="3" style="margin-top:8px;"/>
+        <el-form-item label="进度" prop="title">
+          <el-input v-model="temp.tprogress"/>
         </el-form-item>
-        <el-form-item :label="$t('table.remark')">
-          <el-input :autosize="{ minRows: 2, maxRows: 4}" v-model="temp.remark" type="textarea" placeholder="Please input"/>
+        <el-form-item label="赠品" prop="title">
+          <el-input v-model="temp.tgift"/>
+        </el-form-item>
+        <el-form-item label="预热时间" prop="title">
+          <el-input v-model="temp.tpreheatTime"/>
+        </el-form-item>
+        <el-form-item label="发布时间" prop="title">
+          <el-input v-model="temp.tpublishTime"/>
+        </el-form-item>
+        <el-form-item label="结束时间" prop="title">
+          <el-input v-model="temp.tfinishTime"/>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -178,13 +183,16 @@ export default {
       statusOptions: ['published', 'draft', 'deleted'],
       showReviewer: false,
       temp: {
-        id: undefined,
-        importance: 1,
-        remark: '',
-        timestamp: new Date(),
-        title: '',
-        type: '',
-        status: 'published'
+        tid: '',
+        tname: '',
+        tsellerId: '',
+        tgift: '',
+        tpreheatTime: '',
+        tpublishTime: '',
+        tfinishTime: '',
+        tprogress: '',
+        ttotal: '',
+        tchargeAmout: ''
       },
       dialogFormVisible: false,
       dialogStatus: '',
@@ -223,7 +231,7 @@ export default {
       this.getList()
     },
     handleSizeChange(val) {
-      this.listQuery.limit = val
+      this.listQuery.size = val
       this.getList()
     },
     handleCurrentChange(val) {
