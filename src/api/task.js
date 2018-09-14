@@ -26,10 +26,34 @@ export function addTask(taskId, taskName, sellerId, chargeAmount, taskAmount, gi
   })
 }
 
+export function createTask(data) {
+  return request({
+    url: '/task/add',
+    method: 'post',
+    data
+  })
+}
+
 export function fetchList(query) {
   return request({
     url: '/task/pageTasks',
     method: 'get',
     params: query
+  })
+}
+
+export function updateTask(data) {
+  return request({
+    url: '/task/update',
+    method: 'post',
+    data
+  })
+}
+
+export function deleteTask(data) {
+  return request({
+    url: '/task/delete',
+    method: 'post',
+    data
   })
 }

@@ -28,3 +28,11 @@ export function addInfo(userid, username, shopName, shopUrl, wechatId, wechatNam
     }
   })
 }
+
+export function fetchList(query) {
+  return request({
+    url: '/seller/pageSellers',
+    method: 'get',
+    params: query
+  })
+}
