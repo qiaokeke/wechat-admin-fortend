@@ -36,3 +36,27 @@ export function fetchList(query) {
     params: query
   })
 }
+
+export function updateSeller(data) {
+  return request({
+    url: '/seller/update',
+    method: 'post',
+    data
+  })
+}
+
+export function createSeller(data) {
+  return request({
+    url: '/seller/create',
+    method: 'post',
+    data
+  })
+}
+
+export function deleteSeller(data) {
+  return request({
+    url: '/seller/delete',
+    method: 'post',
+    data
+  })
+}

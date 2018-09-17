@@ -2,7 +2,7 @@
   <div class="app-container">
     <div class="filter-container">
       <el-input v-model="listQuery.sellerId" style="width: 200px;" class="filter-item" placeholder="卖家Id" @keyup.enter.native="handleFilter"/>
-      <el-input v-model="listQuery.sellerId" style="width: 200px;" class="filter-item" placeholder="卖家昵称" @keyup.enter.native="handleFilter"/>
+      <el-input v-model="listQuery.sellerName" style="width: 200px;" class="filter-item" placeholder="卖家昵称" @keyup.enter.native="handleFilter"/>
       <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">查找</el-button>
       <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">新增</el-button>
     </div>
@@ -80,7 +80,7 @@
         <el-form-item label="卖家名称" prop="timestamp">
           <el-input v-model="temp.sellerName"/>
         </el-form-item>
-        <el-form-item  label="店铺名称" prop="title">
+        <el-form-item label="店铺名称" prop="title">
           <el-input v-model="temp.sellerShopName"/>
         </el-form-item>
         <el-form-item label="店铺url" prop="title">
@@ -93,13 +93,13 @@
           <el-input v-model="temp.sellerWechatName"/>
         </el-form-item>
         <el-form-item label="QQId" prop="title">
-          <el-date-picker v-model="temp.sellerQQId" type="datetime" placeholder="选择QQId" align="right" value-format="yyyy-MM-dd HH:mm:00" format="yyyy-MM-dd HH:mm:00"/>
+          <el-input v-model="temp.sellerQQId"/>
         </el-form-item>
         <el-form-item label="QQ昵称" prop="title">
-          <el-date-picker v-model="temp.sellerQQName" type="datetime" placeholder="选择QQ昵称" align="right" value-format="yyyy-MM-dd HH:mm:00" format="yyyy-MM-dd HH:mm:00"/>
+          <el-input v-model="temp.sellerQQName"/>
         </el-form-item>
         <el-form-item label="手机号" prop="title">
-          <el-date-picker v-model="temp.sellerPhoneNumber" type="datetime" placeholder="选择手机号" align="right" value-format="yyyy-MM-dd HH:mm:00" format="yyyy-MM-dd HH:mm:00"/>
+          <el-input v-model="temp.sellerPhoneNumber"/>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -123,7 +123,7 @@
 </template>
 
 <script>
-import { fetchList, updateseller, deleteseller, createseller, gesellerId } from '@/api/seller'
+import { fetchList, updateSeller, deleteSeller, createSeller } from '@/api/seller'
 import { fetchPv } from '@/api/article'
 import waves from '@/directive/waves' // 水波纹指令
 import { parseTime } from '@/utils'
@@ -256,9 +256,6 @@ export default {
     },
     handleCreate() {
       this.resetTemp()
-      gesellerId().then(response => {
-        this.temp.sellerId = response.data
-      })
       this.dialogStatus = 'create'
       this.dialogFormVisible = true
       this.$nextTick(() => {
@@ -266,7 +263,7 @@ export default {
       })
     },
     createData() {
-      createseller(this.temp).then(response => {
+      createSeller(this.temp).then(response => {
         this.$notify({
           title: response.msg,
           message: response.data,
@@ -286,7 +283,7 @@ export default {
     },
     updateData() {
       const tempData = Object.assign({}, this.temp)
-      updateseller(tempData).then(response => {
+      updateSeller(tempData).then(response => {
         for (const v of this.list) {
           if (v.id === this.temp.id) {
             const index = this.list.indexOf(v)
@@ -306,7 +303,7 @@ export default {
     },
     handleDelete(row) {
       const temp = Object.assign({}, row)
-      deleteseller(temp).then(response => {
+      deleteSeller(temp).then(response => {
         this.$notify({
           title: '成功',
           message: response.data,
